@@ -1,4 +1,4 @@
 default:
-	g++ -O3 -Wall src/*.cpp -o bin/main
+	g++ -O3 -Wall src/*.cpp -o main
 clean:
-	rm bin/main
+	rm main
