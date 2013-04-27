@@ -7,6 +7,9 @@
 #include "true.h"
 #include "false.h"
 #include "proposition.h"
+#include "eventually.h"
+#include "next.h"
+#include "until.h"
 
 Formula::~Formula() {
 }
@@ -26,6 +29,12 @@ Formula* Formula::getFormulaOfType(const std::string& op) {
         return new Conjunction();
     else if (op[0] == '|')
         return new Disjunction();
+    else if (op[0] == 'F')
+        return new Eventually();
+    else if (op[0] == 'X')
+        return new Next();
+    else if (op[0] == 'U')
+        return new Until();
     else if (op == "true")
         return new True();
     else if (op == "false")
