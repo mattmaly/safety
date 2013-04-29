@@ -14,6 +14,10 @@
 Formula::~Formula() {
 }
 
+Formula* Formula::simplify() const {
+    return copy();
+}
+
 bool Formula::isTrue() const {
     return false;
 }
