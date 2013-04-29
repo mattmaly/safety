@@ -15,3 +15,7 @@ void True::write(std::ostream& out) const {
 Formula* True::copy() const {
     return new True();
 }
+
+bool True::isTrue() const {
+    return true;
+}

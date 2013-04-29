@@ -15,3 +15,7 @@ void False::write(std::ostream& out) const {
 Formula* False::copy() const {
     return new False();
 }
+
+bool False::isFalse() const {
+    return true;
+}

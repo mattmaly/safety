@@ -11,6 +11,7 @@ public:
     virtual void read(std::istream& in);
     virtual void write(std::ostream& out) const;
     virtual Formula* copy() const;
+    virtual bool isTrue() const;
 };
 
 #endif

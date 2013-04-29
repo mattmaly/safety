@@ -14,6 +14,14 @@
 Formula::~Formula() {
 }
 
+bool Formula::isTrue() const {
+    return false;
+}
+
+bool Formula::isFalse() const {
+    return false;
+}
+
 Formula* Formula::parse(std::istream& in) {
     std::string op;
     in >> op;
