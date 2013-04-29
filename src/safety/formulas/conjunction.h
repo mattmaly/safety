@@ -2,7 +2,7 @@
 #define SAFETY_CONJUNCTION_H
 
 #include <string>
-#include "binaryformula.h"
+#include "safety/formulas//binaryformula.h"
 
 class Conjunction : public BinaryFormula {
     virtual ~Conjunction();

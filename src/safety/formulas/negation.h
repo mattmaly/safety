@@ -2,7 +2,7 @@
 #define SAFETY_NEGATION_H
 
 #include <string>
-#include "unaryformula.h"
+#include "safety/formulas/unaryformula.h"
 
 class Negation : public UnaryFormula {
     virtual ~Negation();

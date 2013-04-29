@@ -1,5 +1,5 @@
 #include <string>
-#include "next.h"
+#include "safety/formulas/next.h"
 
 Next::~Next() {
 }

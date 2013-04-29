@@ -2,7 +2,7 @@
 #define SAFETY_UNTIL_H
 
 #include <string>
-#include "binaryformula.h"
+#include "safety/formulas/binaryformula.h"
 
 class Until : public BinaryFormula {
     virtual ~Until();

@@ -1,5 +1,5 @@
 #include <string>
-#include "negation.h"
+#include "safety/formulas/negation.h"
 
 Negation::~Negation() {
 }

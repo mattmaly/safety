@@ -1,7 +1,7 @@
 #include <istream>
 #include <ostream>
 #include <string>
-#include "proposition.h"
+#include "safety/formulas/proposition.h"
 
 Proposition::Proposition(const std::string& n) : Formula(), name(n) {
 }

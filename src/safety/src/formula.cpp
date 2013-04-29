@@ -1,15 +1,15 @@
 #include <istream>
 #include <string>
-#include "formula.h"
-#include "negation.h"
-#include "conjunction.h"
-#include "disjunction.h"
-#include "true.h"
-#include "false.h"
-#include "proposition.h"
-#include "eventually.h"
-#include "next.h"
-#include "until.h"
+#include "safety/formula.h"
+#include "safety/formulas/negation.h"
+#include "safety/formulas/conjunction.h"
+#include "safety/formulas/disjunction.h"
+#include "safety/formulas/true.h"
+#include "safety/formulas/false.h"
+#include "safety/formulas/proposition.h"
+#include "safety/formulas/eventually.h"
+#include "safety/formulas/next.h"
+#include "safety/formulas/until.h"
 
 Formula::~Formula() {
 }

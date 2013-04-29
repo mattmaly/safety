@@ -1,5 +1,5 @@
 #include <iostream>
-#include "formula.h"
+#include "safety/formula.h"
 
 int main(int argc, char** argv) {
     std::cout << "input formula: ";

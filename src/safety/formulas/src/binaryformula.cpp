@@ -1,6 +1,6 @@
 #include <istream>
 #include <ostream>
-#include "binaryformula.h"
+#include "safety/formulas/binaryformula.h"
 
 BinaryFormula::~BinaryFormula() {
     if (left != NULL)

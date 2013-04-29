@@ -1,6 +1,6 @@
 #include <istream>
 #include <ostream>
-#include "true.h"
+#include "safety/formulas/true.h"
 
 True::~True() {
 }

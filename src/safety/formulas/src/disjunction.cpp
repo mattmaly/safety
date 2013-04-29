@@ -1,5 +1,5 @@
 #include <string>
-#include "disjunction.h"
+#include "safety/formulas/disjunction.h"
 
 Disjunction::~Disjunction() {
 }

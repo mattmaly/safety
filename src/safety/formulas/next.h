@@ -2,7 +2,7 @@
 #define SAFETY_NEXT_H
 
 #include <string>
-#include "unaryformula.h"
+#include "safety/formulas/unaryformula.h"
 
 class Next : public UnaryFormula {
     virtual ~Next();

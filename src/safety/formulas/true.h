@@ -1,13 +1,13 @@
-#ifndef SAFETY_FALSE_H
-#define SAFETY_FALSE_H
+#ifndef SAFETY_TRUE_H
+#define SAFETY_TRUE_H
 
 #include <istream>
 #include <ostream>
-#include "formula.h"
+#include "safety/formula.h"
 
-class False : public Formula {
+class True : public Formula {
 public:
-    virtual ~False();
+    virtual ~True();
     virtual void read(std::istream& in);
     virtual void write(std::ostream& out) const;
 };

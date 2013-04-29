@@ -2,7 +2,7 @@
 #define SAFETY_EVENTUALLY_H
 
 #include <string>
-#include "unaryformula.h"
+#include "safety/formulas/unaryformula.h"
 
 class Eventually : public UnaryFormula {
     virtual ~Eventually();

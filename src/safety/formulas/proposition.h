@@ -4,7 +4,7 @@
 #include <istream>
 #include <ostream>
 #include <string>
-#include "formula.h"
+#include "safety/formula.h"
 
 class Proposition : public Formula {
 public:

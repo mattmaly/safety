@@ -1,5 +1,5 @@
 #include <string>
-#include "eventually.h"
+#include "safety/formulas/eventually.h"
 
 Eventually::~Eventually() {
 }

@@ -1,5 +1,5 @@
 #include <string>
-#include "conjunction.h"
+#include "safety/formulas/conjunction.h"
 
 Conjunction::~Conjunction() {
 }

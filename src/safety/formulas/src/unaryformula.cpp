@@ -1,6 +1,6 @@
 #include <istream>
 #include <ostream>
-#include "unaryformula.h"
+#include "safety/formulas/unaryformula.h"
 
 UnaryFormula::~UnaryFormula() {
     if (child != NULL)
