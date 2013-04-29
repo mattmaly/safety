@@ -7,6 +7,7 @@
 class Negation : public UnaryFormula {
     virtual ~Negation();
     virtual Formula* copy() const;
+    virtual Formula* simplify() const;
     virtual std::string getType() const;
 };
 
