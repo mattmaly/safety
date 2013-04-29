@@ -6,6 +6,7 @@
 
 class Disjunction : public BinaryFormula {
     virtual ~Disjunction();
+    virtual Formula* copy() const;
     virtual std::string getType() const;
 };
 

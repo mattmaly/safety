@@ -6,6 +6,7 @@
 
 class Next : public UnaryFormula {
     virtual ~Next();
+    virtual Formula* copy() const;
     virtual std::string getType() const;
 };
 

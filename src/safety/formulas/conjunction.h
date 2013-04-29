@@ -6,6 +6,7 @@
 
 class Conjunction : public BinaryFormula {
     virtual ~Conjunction();
+    virtual Formula* copy() const;
     virtual std::string getType() const;
 };
 

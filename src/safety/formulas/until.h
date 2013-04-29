@@ -6,6 +6,7 @@
 
 class Until : public BinaryFormula {
     virtual ~Until();
+    virtual Formula* copy() const;
     virtual std::string getType() const;
 };
 

@@ -15,3 +15,7 @@ void Proposition::read(std::istream& in) {
 void Proposition::write(std::ostream& out) const {
     out << name;
 }
+
+Formula* Proposition::copy() const {
+    return new Proposition(name);
+}

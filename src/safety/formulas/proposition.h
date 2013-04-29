@@ -12,6 +12,7 @@ public:
     virtual ~Proposition();
     virtual void read(std::istream& in);
     virtual void write(std::ostream& out) const;
+    virtual Formula* copy() const;
 
 protected:
     std::string name;

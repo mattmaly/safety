@@ -6,6 +6,7 @@
 
 class Eventually : public UnaryFormula {
     virtual ~Eventually();
+    virtual Formula* copy() const;
     virtual std::string getType() const;
 };
 
