@@ -1,14 +1,15 @@
 #include <string>
 #include "safety/formulas/conjunction.h"
 
+Conjunction::Conjunction(Formula* lChild, Formula* rChild) :
+    BinaryFormula(lChild, rChild) {
+}
+
 Conjunction::~Conjunction() {
 }
 
 Formula* Conjunction::copy() const {
-    Conjunction* c = new Conjunction();
-    c->left = left->copy();
-    c->right = right->copy();
-    return c;
+    return new Conjunction(left->copy(), right->copy());
 }
 
 Formula* Conjunction::simplify() const {
@@ -30,10 +31,7 @@ Formula* Conjunction::simplify() const {
         return sLeft;
     }
 
-    Conjunction* c = new Conjunction();
-    c->left = sLeft;
-    c->right = sRight;
-    return c;
+    return new Conjunction(sLeft, sRight);
 }
 
 std::string Conjunction::getType() const {

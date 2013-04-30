@@ -8,9 +8,9 @@ int main(int argc, char** argv) {
     f->write(std::cout);
     std::cout << std::endl;
 
-    Formula* copy = f->copy();
+    Formula* copy = f->simplify();
     delete f;
-    std::cout << "copy of parsed formula: ";
+    std::cout << "simplified parsed formula: ";
     copy->write(std::cout);
     std::cout << std::endl;
     delete copy;

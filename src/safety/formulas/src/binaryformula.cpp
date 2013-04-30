@@ -2,6 +2,11 @@
 #include <ostream>
 #include "safety/formulas/binaryformula.h"
 
+BinaryFormula::BinaryFormula(Formula* lChild, Formula* rChild) : Formula(),
+    left(lChild),
+    right(rChild) {
+}
+
 BinaryFormula::~BinaryFormula() {
     if (left != NULL)
         delete left;

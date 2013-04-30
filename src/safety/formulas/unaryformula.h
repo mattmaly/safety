@@ -8,6 +8,7 @@
 
 class UnaryFormula : public Formula {
 public:
+    UnaryFormula(Formula* c = NULL);
     virtual ~UnaryFormula();
     virtual void read(std::istream& in);
     virtual void write(std::ostream& out) const;

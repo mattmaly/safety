@@ -5,6 +5,8 @@
 #include "safety/formulas/binaryformula.h"
 
 class Disjunction : public BinaryFormula {
+public:
+    Disjunction(Formula* lChild = NULL, Formula* rChild = NULL);
     virtual ~Disjunction();
     virtual Formula* copy() const;
     virtual Formula* simplify() const;

@@ -5,6 +5,8 @@
 #include "safety/formulas/unaryformula.h"
 
 class Negation : public UnaryFormula {
+public:
+    Negation(Formula* c = NULL);
     virtual ~Negation();
     virtual Formula* copy() const;
     virtual Formula* simplify() const;

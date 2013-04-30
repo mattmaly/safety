@@ -2,6 +2,10 @@
 #include <ostream>
 #include "safety/formulas/unaryformula.h"
 
+UnaryFormula::UnaryFormula(Formula* c) : Formula(),
+    child(c) {
+}
+
 UnaryFormula::~UnaryFormula() {
     if (child != NULL)
         delete child;

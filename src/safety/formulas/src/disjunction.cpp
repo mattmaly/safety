@@ -1,14 +1,15 @@
 #include <string>
 #include "safety/formulas/disjunction.h"
 
+Disjunction::Disjunction(Formula* lChild, Formula* rChild) :
+    BinaryFormula(lChild, rChild) {
+}
+
 Disjunction::~Disjunction() {
 }
 
 Formula* Disjunction::copy() const {
-    Disjunction* d = new Disjunction();
-    d->left = left->copy();
-    d->right = right->copy();
-    return d;
+    return new Disjunction(left->copy(), right->copy());
 }
 
 Formula* Disjunction::simplify() const {
@@ -30,10 +31,7 @@ Formula* Disjunction::simplify() const {
         return sLeft;
     }
 
-    Disjunction* d = new Disjunction();
-    d->left = sLeft;
-    d->right = sRight;
-    return d;
+    return new Disjunction(sLeft, sRight);
 }
 
 std::string Disjunction::getType() const {

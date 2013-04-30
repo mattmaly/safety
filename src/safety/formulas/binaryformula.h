@@ -8,6 +8,7 @@
 
 class BinaryFormula : public Formula {
 public:
+    BinaryFormula(Formula* lChild = NULL, Formula* rChild = NULL);
     virtual ~BinaryFormula();
     virtual void read(std::istream& in);
     virtual void write(std::ostream& out) const;

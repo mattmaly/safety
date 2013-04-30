@@ -3,13 +3,15 @@
 #include "safety/formulas/true.h"
 #include "safety/formulas/false.h"
 
+Negation::Negation(Formula* c) :
+    UnaryFormula(c) {
+}
+
 Negation::~Negation() {
 }
 
 Formula* Negation::copy() const {
-    Negation* n = new Negation();
-    n->child = child->copy();
-    return n;
+    return new Negation(child->copy());
 }
 
 Formula* Negation::simplify() const {
@@ -22,9 +24,7 @@ Formula* Negation::simplify() const {
         delete sChild;
         return new True();
     }
-    Negation* n = new Negation();
-    n->child = sChild;
-    return n;
+    return new Negation(sChild);
 }
 
 std::string Negation::getType() const {
