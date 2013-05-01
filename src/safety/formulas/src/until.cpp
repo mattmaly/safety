@@ -1,6 +1,9 @@
 #include <string>
+#include "safety/formulas/conjunction.h"
+#include "safety/formulas/disjunction.h"
 #include "safety/formulas/until.h"
 #include "safety/formulas/eventually.h"
+#include "safety/world.h"
 
 Until::Until(Formula* lChild, Formula* rChild) :
     BinaryFormula(lChild, rChild) {
@@ -30,6 +33,12 @@ Formula* Until::simplify() const {
         return new Eventually(sRight);
 
     return new Until(sLeft, sRight);
+}
+
+Formula* Until::evaluate(const World& w) const {
+    // eval(a U b, w) = eval(b,w) \/ (eval(a,w) /\ (a U b))
+    Conjunction* c = new Conjunction(left->evaluate(w), copy());
+    return new Disjunction(right->evaluate(w), c);
 }
 
 std::string Until::getType() const {

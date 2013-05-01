@@ -1,5 +1,7 @@
 #include <string>
+#include "safety/formulas/disjunction.h"
 #include "safety/formulas/eventually.h"
+#include "safety/world.h"
 
 Eventually::Eventually(Formula* c) :
     UnaryFormula(c) {
@@ -17,6 +19,11 @@ Formula* Eventually::simplify() const {
     if (sChild->isTrue() || sChild->isFalse())
         return sChild;
     return new Eventually(sChild);
+}
+
+Formula* Eventually::evaluate(const World& w) const {
+    // eval(F a, w) = eval(a,w) \/ (F a)
+    return new Disjunction(child->evaluate(w), copy());
 }
 
 std::string Eventually::getType() const {

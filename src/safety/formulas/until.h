@@ -10,6 +10,7 @@ public:
     virtual ~Until();
     virtual Formula* copy() const;
     virtual Formula* simplify() const;
+    virtual Formula* evaluate(const World& w) const;
     virtual std::string getType() const;
 };
 

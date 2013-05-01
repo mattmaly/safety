@@ -3,6 +3,7 @@
 
 #include <string>
 #include "safety/formulas/unaryformula.h"
+#include "safety/world.h"
 
 class Next : public UnaryFormula {
 public:
@@ -10,6 +11,7 @@ public:
     virtual ~Next();
     virtual Formula* copy() const;
     virtual Formula* simplify() const;
+    virtual Formula* evaluate(const World& w) const;
     virtual std::string getType() const;
 };
 

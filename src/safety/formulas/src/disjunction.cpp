@@ -1,5 +1,6 @@
 #include <string>
 #include "safety/formulas/disjunction.h"
+#include "safety/world.h"
 
 Disjunction::Disjunction(Formula* lChild, Formula* rChild) :
     BinaryFormula(lChild, rChild) {
@@ -32,6 +33,10 @@ Formula* Disjunction::simplify() const {
     }
 
     return new Disjunction(sLeft, sRight);
+}
+
+Formula* Disjunction::evaluate(const World& w) const {
+    return new Disjunction(left->evaluate(w), right->evaluate(w));
 }
 
 std::string Disjunction::getType() const {

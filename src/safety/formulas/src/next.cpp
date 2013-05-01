@@ -1,5 +1,6 @@
 #include <string>
 #include "safety/formulas/next.h"
+#include "safety/world.h"
 
 Next::Next(Formula* c) :
     UnaryFormula(c) {
@@ -17,6 +18,11 @@ Formula* Next::simplify() const {
     if (sChild->isTrue() || sChild->isFalse())
         return sChild;
     return new Next(sChild);
+}
+
+Formula* Next::evaluate(const World& w) const {
+    // eval(X a, w) = a
+    return child->copy();
 }
 
 std::string Next::getType() const {

@@ -4,6 +4,7 @@
 #include <istream>
 #include <ostream>
 #include "safety/formula.h"
+#include "safety/world.h"
 
 class True : public Formula {
 public:
@@ -11,6 +12,7 @@ public:
     virtual void read(std::istream& in);
     virtual void write(std::ostream& out) const;
     virtual Formula* copy() const;
+    virtual Formula* evaluate(const World& w) const;
     virtual bool isTrue() const;
 };
 

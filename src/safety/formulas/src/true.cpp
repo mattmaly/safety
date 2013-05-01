@@ -1,6 +1,7 @@
 #include <istream>
 #include <ostream>
 #include "safety/formulas/true.h"
+#include "safety/world.h"
 
 True::~True() {
 }
@@ -14,6 +15,10 @@ void True::write(std::ostream& out) const {
 
 Formula* True::copy() const {
     return new True();
+}
+
+Formula* True::evaluate(const World& w) const {
+    return copy();
 }
 
 bool True::isTrue() const {

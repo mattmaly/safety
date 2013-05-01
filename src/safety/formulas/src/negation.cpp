@@ -2,6 +2,7 @@
 #include "safety/formulas/negation.h"
 #include "safety/formulas/true.h"
 #include "safety/formulas/false.h"
+#include "safety/world.h"
 
 Negation::Negation(Formula* c) :
     UnaryFormula(c) {
@@ -25,6 +26,10 @@ Formula* Negation::simplify() const {
         return new True();
     }
     return new Negation(sChild);
+}
+
+Formula* Negation::evaluate(const World& w) const {
+    return new Negation(child->evaluate(w));
 }
 
 std::string Negation::getType() const {

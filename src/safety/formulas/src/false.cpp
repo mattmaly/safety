@@ -1,6 +1,7 @@
 #include <istream>
 #include <ostream>
 #include "safety/formulas/false.h"
+#include "safety/world.h"
 
 False::~False() {
 }
@@ -14,6 +15,10 @@ void False::write(std::ostream& out) const {
 
 Formula* False::copy() const {
     return new False();
+}
+
+Formula* False::evaluate(const World& w) const {
+    return copy();
 }
 
 bool False::isFalse() const {

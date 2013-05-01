@@ -1,5 +1,6 @@
 #include <string>
 #include "safety/formulas/conjunction.h"
+#include "safety/world.h"
 
 Conjunction::Conjunction(Formula* lChild, Formula* rChild) :
     BinaryFormula(lChild, rChild) {
@@ -32,6 +33,10 @@ Formula* Conjunction::simplify() const {
     }
 
     return new Conjunction(sLeft, sRight);
+}
+
+Formula* Conjunction::evaluate(const World& w) const {
+    return new Conjunction(left->evaluate(w), right->evaluate(w));
 }
 
 std::string Conjunction::getType() const {
