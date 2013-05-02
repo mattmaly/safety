@@ -1,4 +1,5 @@
 #include <istream>
+#include <sstream>
 #include <string>
 #include "safety/formula.h"
 #include "safety/formulas/negation.h"
@@ -53,4 +54,12 @@ Formula* Formula::getFormulaOfType(const std::string& op) {
         return new False();
     else
         return new Proposition(op);
+}
+
+bool std::less<Formula*>::operator()(Formula* const& f, Formula* const& g) const {
+    std::ostringstream fbuf;
+    std::ostringstream gbuf;
+    f->write(fbuf);
+    g->write(gbuf);
+    return fbuf.str() < gbuf.str();
 }

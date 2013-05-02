@@ -21,4 +21,12 @@ public:
     static Formula* getFormulaOfType(const std::string& op);
 };
 
+namespace std {
+    template <>
+    struct less<Formula*> {
+    public:
+        bool operator()(Formula* const& f, Formula* const& g) const;
+    };
+}
+
 #endif
