@@ -13,6 +13,8 @@ public:
     virtual void read(std::istream& in);
     virtual void write(std::ostream& out) const;
     virtual std::string getType() const = 0;
+    virtual const Formula* getLeft() const;
+    virtual const Formula* getRight() const;
 
 protected:
     Formula* left;

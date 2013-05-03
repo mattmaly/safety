@@ -25,3 +25,11 @@ void BinaryFormula::write(std::ostream& out) const {
     out << " ";
     right->write(out);
 }
+
+const Formula* BinaryFormula::getLeft() const {
+    return left;
+}
+
+const Formula* BinaryFormula::getRight() const {
+    return right;
+}
