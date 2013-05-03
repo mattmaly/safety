@@ -1,33 +1,22 @@
 #include <iostream>
 #include "safety/formula.h"
+#include "safety/automaton.h"
+#include "safety/translator.h"
 
 int main(int argc, char** argv) {
     std::cout << "input formula: ";
     Formula* f = Formula::parse(std::cin);
-    std::cout << "parsed formula: ";
-    f->write(std::cout);
-    std::cout << std::endl;
-
-    Formula* copy = f->simplify();
+    std::cout << "parsed & simplified formula: ";
+    Formula* g = f->simplify();
     delete f;
-    std::cout << "simplified parsed formula: ";
-    copy->write(std::cout);
+    g->write(std::cout);
     std::cout << std::endl;
 
-    World w;
-    w["p"] = true;
-    w["q"] = false;
-    w["r"] = true;
-    Formula* eval = copy->evaluate(w);
-    delete copy;
-    Formula* simp = eval->simplify();
-    delete eval;
-    std::cout << "formula evaluated & simplified at ";
-    w.write(std::cout);
-    std::cout << ": ";
-    simp->write(std::cout);
+    Automaton a = Translator::translate(g);    
+    delete g;
+    std::cout << "resulting NFA:" << std::endl;
+    a.write(std::cout);
     std::cout << std::endl;
 
-    delete simp;
     return 0;
 }
