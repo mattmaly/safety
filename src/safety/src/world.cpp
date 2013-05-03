@@ -32,11 +32,15 @@ void World::write(std::ostream& out) const {
     typedef std::map<std::string, int>::const_iterator PropNameIter;
     typedef std::map<int, bool>::const_iterator AssignmentIter;
 
+    bool firstTerm = true;
     for (PropNameIter piter = propByName.begin(); piter != propByName.end(); ++piter) {
         AssignmentIter aiter = assignment.find(piter->second);
         if (aiter == assignment.end())
             continue;
-        out << "[" << piter->first << "->" << aiter->second << "]";
+        if (!firstTerm)
+            out << " & ";
+        firstTerm = false;
+        out << (aiter->second ? "" : "!") << piter->first;
     }
 }
 
