@@ -36,17 +36,17 @@ Formula* Formula::parse(std::istream& in) {
 }
 
 Formula* Formula::getFormulaOfType(const std::string& op) {
-    if (op[0] == '!')
+    if (op == "!")
         return new Negation();
-    else if (op[0] == '&')
+    else if (op == "&")
         return new Conjunction();
-    else if (op[0] == '|')
+    else if (op == "|")
         return new Disjunction();
-    else if (op[0] == 'F')
+    else if (op == "F")
         return new Eventually();
-    else if (op[0] == 'X')
+    else if (op == "X")
         return new Next();
-    else if (op[0] == 'U')
+    else if (op == "U")
         return new Until();
     else if (op == "true")
         return new True();
