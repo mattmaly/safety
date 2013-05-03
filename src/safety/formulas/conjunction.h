@@ -2,10 +2,10 @@
 #define SAFETY_CONJUNCTION_H
 
 #include <string>
-#include "safety/formulas//binaryformula.h"
+#include "safety/formulas//commutativeformula.h"
 #include "safety/world.h"
 
-class Conjunction : public BinaryFormula {
+class Conjunction : public CommutativeFormula {
 public:
     Conjunction(Formula* lChild = NULL, Formula* rChild = NULL);
     virtual ~Conjunction();

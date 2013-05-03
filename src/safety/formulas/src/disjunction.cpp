@@ -3,7 +3,7 @@
 #include "safety/world.h"
 
 Disjunction::Disjunction(Formula* lChild, Formula* rChild) :
-    BinaryFormula(lChild, rChild) {
+    CommutativeFormula(lChild, rChild) {
 }
 
 Disjunction::~Disjunction() {
