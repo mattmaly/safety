@@ -37,8 +37,13 @@ Formula* Until::simplify() const {
 
 Formula* Until::evaluate(const World& w) const {
     // eval(a U b, w) = eval(b,w) \/ (eval(a,w) /\ (a U b))
-    Conjunction* c = new Conjunction(left->evaluate(w), copy());
-    return new Disjunction(right->evaluate(w), c);
+    std::set<Formula*> conChildren, disChildren;
+    conChildren.insert(left->evaluate(w));
+    conChildren.insert(copy());
+    Conjunction* c = new Conjunction(conChildren);
+    disChildren.insert(right->evaluate(w));
+    disChildren.insert(c);
+    return new Disjunction(disChildren);
 }
 
 std::string Until::getType() const {

@@ -9,7 +9,7 @@
 
 Automaton Translator::translate(const Formula* f) {
     Automaton aut;
-    std::vector<Formula*> initialStates = splitDisjunctions(f);
+    std::vector<Formula*> initialStates(1, f->copy());
     std::queue<Formula*> upcoming;
     std::set<Formula*> processed;
     typedef std::vector<Formula*>::iterator FormulaIter;
@@ -30,7 +30,7 @@ Automaton Translator::translate(const Formula* f) {
             World w = witer.next();
             Formula* neighbor = next->evaluate(w);
             Formula* simpNeighbor = neighbor->simplify();
-            std::vector<Formula*> dests = splitDisjunctions(simpNeighbor);
+            std::vector<Formula*> dests(1, simpNeighbor->copy());
             delete neighbor;
             delete simpNeighbor;
 
@@ -70,14 +70,4 @@ World Translator::WorldIterator::next() {
         w[pid] = (index & (1 << pid)) != 0;
     ++index;
     return w;
-}
-
-std::vector<Formula*> Translator::splitDisjunctions(const Formula* f) {
-    const Disjunction* d = dynamic_cast<const Disjunction*>(f);
-    if (d == NULL)
-        return std::vector<Formula*>(1, f->copy());
-    std::vector<Formula*> left = splitDisjunctions(d->getLeft());
-    std::vector<Formula*> right = splitDisjunctions(d->getRight());
-    left.insert(left.end(), right.begin(), right.end());
-    return left;
 }

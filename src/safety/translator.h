@@ -22,8 +22,6 @@ protected:
         unsigned int size;
         unsigned int index;
     };
-
-    static std::vector<Formula*> splitDisjunctions(const Formula* f);
 };
 
 #endif

@@ -23,7 +23,10 @@ Formula* Eventually::simplify() const {
 
 Formula* Eventually::evaluate(const World& w) const {
     // eval(F a, w) = eval(a,w) \/ (F a)
-    return new Disjunction(child->evaluate(w), copy());
+    std::set<Formula*> disChildren;
+    disChildren.insert(child->evaluate(w));
+    disChildren.insert(copy());
+    return new Disjunction(disChildren);
 }
 
 std::string Eventually::getType() const {
