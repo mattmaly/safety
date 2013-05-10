@@ -59,6 +59,6 @@ int World::registerProposition(const std::string& p) {
     return propByName[p];
 }
 
-int World::numProps() {
+unsigned int World::numProps() {
     return propByName.size();
 }

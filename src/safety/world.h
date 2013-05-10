@@ -21,7 +21,7 @@ protected:
 
 public:
     static int registerProposition(const std::string& p);
-    static int numProps();
+    static unsigned int numProps();
 
 protected:
     static std::map<std::string, int> propByName;
