@@ -1,6 +1,7 @@
 #include <map>
 #include <ostream>
 #include <vector>
+#include <algorithm>
 #include "safety/automaton.h"
 #include "safety/formula.h"
 #include "safety/world.h"
@@ -73,6 +74,16 @@ void Automaton::write(std::ostream& out, bool withStateLabels) {
     out << "}";
 }
 
+void Automaton::simplifyEdges() {
+    typedef std::map<Formula*, std::map<Formula*, std::vector<World> > >::iterator SourceIter;
+    typedef std::map<Formula*, std::vector<World> >::iterator DestIter;
+    for (SourceIter s = edges.begin(); s != edges.end(); ++s) {
+        std::map<Formula*, std::vector<World> >& outEdges = s->second;
+        for (DestIter d = outEdges.begin(); d != outEdges.end(); ++d)
+            simplifyEdge(d->second);
+    }
+}
+
 void Automaton::freeMemory() {
     typedef std::map<Formula*, std::map<Formula*, std::vector<World> > >::iterator SourceIter;
     typedef std::map<Formula*, std::vector<World> >::iterator DestIter;
@@ -90,4 +101,28 @@ void Automaton::freeMemory() {
     typedef std::vector<Formula*>::iterator FormulaIter;
     for (FormulaIter f = initial.begin(); f != initial.end(); ++f)
         delete *f;
+}
+
+void Automaton::simplifyEdge(std::vector<World>& label) {
+    std::vector<int> polarity(World::numProps(), 0);
+    typedef std::vector<World>::const_iterator WorldIter;
+    for (WorldIter wi = label.begin(); wi != label.end(); ++wi) {
+        const World& w = *wi;
+        for (unsigned int p = 0; p < World::numProps(); ++p)
+            polarity[p] += (w[p] ? 1 : -1);
+    }
+
+    std::vector<World> newLabel;
+    for (WorldIter wi = label.begin(); wi != label.end(); ++wi) {
+        const World& w = *wi;
+        World wSimp;
+        for (unsigned int p = 0; p < World::numProps(); ++p) {
+            if (polarity[p] != 0)
+                wSimp[p] = w[p];
+        }
+        WorldIter wSimpLoc = std::find(newLabel.begin(), newLabel.end(), wSimp);
+        if (wSimpLoc == newLabel.end())
+            newLabel.push_back(wSimp);
+    }
+    label = newLabel;
 }

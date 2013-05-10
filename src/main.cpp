@@ -15,6 +15,7 @@ int main(int argc, char** argv) {
     Automaton a = Translator::translate(g);    
     delete g;
     std::cout << "resulting NFA:" << std::endl;
+    a.simplifyEdges();
     a.write(std::cout);
     std::cout << std::endl;
 
