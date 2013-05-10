@@ -32,6 +32,11 @@ void World::write(std::ostream& out) const {
     typedef std::map<std::string, int>::const_iterator PropNameIter;
     typedef std::map<int, bool>::const_iterator AssignmentIter;
 
+    if (assignment.empty()) {
+        out << "true";
+        return;
+    }
+
     bool firstTerm = true;
     for (PropNameIter piter = propByName.begin(); piter != propByName.end(); ++piter) {
         AssignmentIter aiter = assignment.find(piter->second);
@@ -46,6 +51,10 @@ void World::write(std::ostream& out) const {
 
 void World::clear() {
     assignment.clear();
+}
+
+bool World::operator==(const World& w) const {
+    return assignment == w.assignment;
 }
 
 std::map<std::string, int> World::propByName;

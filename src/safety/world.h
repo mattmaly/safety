@@ -16,6 +16,8 @@ public:
     void write(std::ostream& out) const;
     void clear();
 
+    bool operator==(const World& w) const;
+
 protected:
     std::map<int, bool> assignment;
 
