@@ -22,6 +22,8 @@ protected:
     virtual void read(std::istream& in) = 0;
     virtual void write(std::ostream& out) const = 0;
 
+    mutable std::string name;
+
     friend std::ostream& operator<<(std::ostream& out, const Formula* f);
 };
 

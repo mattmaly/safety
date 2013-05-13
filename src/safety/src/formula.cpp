@@ -57,7 +57,12 @@ Formula* Formula::getFormulaOfType(const std::string& op) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Formula* f) {
-    f->write(out);
+    if (f->name.empty()) {
+        std::ostringstream buf;
+        f->write(buf);
+        f->name = buf.str();
+    }
+    out << f->name;
     return out;
 }
 
