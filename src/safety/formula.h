@@ -25,7 +25,6 @@ protected:
     mutable std::string name;
 
     friend std::ostream& operator<<(std::ostream& out, const Formula* f);
-    friend unsigned short hash(const Formula* f);
 };
 
 namespace std {
