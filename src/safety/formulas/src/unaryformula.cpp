@@ -16,6 +16,5 @@ void UnaryFormula::read(std::istream& in) {
 }
 
 void UnaryFormula::write(std::ostream& out) const {
-    out << getType() << " ";
-    child->write(out);
+    out << getType() << " " << child;
 }

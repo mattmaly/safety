@@ -9,8 +9,6 @@
 class Formula {
 public:
     virtual ~Formula();
-    virtual void read(std::istream& in) = 0;
-    virtual void write(std::ostream& out) const = 0;
     virtual Formula* copy() const = 0;
     virtual Formula* simplify() const;
     virtual Formula* evaluate(const World& w) const = 0;
@@ -19,6 +17,12 @@ public:
 
     static Formula* parse(std::istream& in);
     static Formula* getFormulaOfType(const std::string& op);
+
+protected:
+    virtual void read(std::istream& in) = 0;
+    virtual void write(std::ostream& out) const = 0;
+
+    friend std::ostream& operator<<(std::ostream& out, const Formula* f);
 };
 
 namespace std {

@@ -20,10 +20,7 @@ void BinaryFormula::read(std::istream& in) {
 }
 
 void BinaryFormula::write(std::ostream& out) const {
-    out << getType() << " ";
-    left->write(out);
-    out << " ";
-    right->write(out);
+    out << getType() << " " << left << " " << right;
 }
 
 const Formula* BinaryFormula::getLeft() const {

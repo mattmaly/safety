@@ -30,16 +30,12 @@ void CommutativeFormula::read(std::istream& in) {
 }
 
 void CommutativeFormula::write(std::ostream& out) const {
-    out << "(";
     typedef std::set<Formula*>::const_iterator ChildIter;
     ChildIter c = children.begin();
-    (*c)->write(out);
+    out << "(" << *c;
     ++c;
-    for (; c != children.end(); ++c) {
-        const Formula* cf = *c;
-        out << " " << getType() << " ";
-        cf->write(out);
-    }
+    for (; c != children.end(); ++c)
+        out << " " << getType() << " " << *c;
     out << ")";
 }
 

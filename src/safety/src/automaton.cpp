@@ -39,10 +39,9 @@ void Automaton::write(std::ostream& out, bool withStateLabels) {
         Formula* src = s->first;
         if (formulaIndex.find(src) == formulaIndex.end())
             formulaIndex[src] = formulaIndex.size();
-        out << "\"";
-        src->write(out);
+        out << "\"" << src << "\"";
         bool acc = (accepting.find(src) != accepting.end()) && accepting.find(src)->second;
-        out << "\" [shape=" << (acc ? "doublecircle" : "circle");
+        out << " [shape=" << (acc ? "doublecircle" : "circle");
         if (!withStateLabels)
             out << ",label=\"\"";
         out << "]" << std::endl;
@@ -50,11 +49,8 @@ void Automaton::write(std::ostream& out, bool withStateLabels) {
         for (DestIter d = outEdges.begin(); d != outEdges.end(); ++d) {
             const std::vector<World>& label = d->second;
             Formula* dest = d->first;
-            out << "\"";
-            src->write(out);
-            out << "\" -> \"";
-            dest->write(out);
-            out << "\" [label=\"";
+            out << "\"" << src << "\" -> \"" << dest << "\"";
+            out << " [label=\"";
             typedef std::vector<World>::const_iterator WorldIter;
             WorldIter w = label.begin();
             if (label.size() > 1)

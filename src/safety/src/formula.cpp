@@ -56,10 +56,15 @@ Formula* Formula::getFormulaOfType(const std::string& op) {
         return new Proposition(op);
 }
 
+std::ostream& operator<<(std::ostream& out, const Formula* f) {
+    f->write(out);
+    return out;
+}
+
 bool std::less<Formula*>::operator()(Formula* const& f, Formula* const& g) const {
     std::ostringstream fbuf;
     std::ostringstream gbuf;
-    f->write(fbuf);
-    g->write(gbuf);
+    fbuf << f;
+    gbuf << g;
     return fbuf.str() < gbuf.str();
 }
