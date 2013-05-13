@@ -66,6 +66,17 @@ std::ostream& operator<<(std::ostream& out, const Formula* f) {
     return out;
 }
 
+unsigned short hash(const Formula* f) {
+    std::ostringstream buf;
+    buf << f;
+    const std::string name = buf.str();
+    typedef std::string::const_iterator CharIter;
+    unsigned short result = 0;
+    for (CharIter c = name.begin(); c != name.end(); ++c)
+        result += *c;
+    return result;
+}
+
 bool std::less<Formula*>::operator()(Formula* const& f, Formula* const& g) const {
     std::ostringstream fbuf;
     std::ostringstream gbuf;
