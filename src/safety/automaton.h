@@ -6,6 +6,7 @@
 #include <vector>
 #include "safety/formula.h"
 #include "safety/world.h"
+#include "safety/util/hashmap.h"
 
 class Automaton {
 public:
@@ -20,8 +21,8 @@ protected:
     void freeMemory();
     static void simplifyEdge(std::vector<World>& label);
 
-    std::map<Formula*, std::map<Formula*, std::vector<World> > > edges;
-    std::map<Formula*, bool> accepting;
+    HashMap<HashMap<std::vector<World> > > edges;
+    HashMap<bool> accepting;
     std::vector<Formula*> initial;
 };
 

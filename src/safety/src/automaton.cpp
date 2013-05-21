@@ -5,18 +5,15 @@
 #include "safety/automaton.h"
 #include "safety/formula.h"
 #include "safety/world.h"
+#include "safety/util/hashmap.h"
 
 Automaton::~Automaton() {
     freeMemory();
 }
 
 void Automaton::addTransition(Formula* src, const World& label, Formula* dest) {
-    typedef std::map<Formula*, std::map<Formula*, std::vector<World> > >::iterator SourceIter;
-    SourceIter s = edges.find(src);
-    src = (s == edges.end() ? src->copy() : s->first);
-    typedef std::map<Formula*, std::vector<World> >::iterator DestIter;
-    DestIter d = edges[src].find(dest);
-    dest = (d == edges[src].end() ? dest->copy() : d->first);
+    src = (edges.contains(src) ? edges.getKey(src) : src->copy());
+    dest = (edges[src].contains(dest) ? edges[src].getKey(dest) : dest->copy());
     edges[src][dest].push_back(label);
 }
 
@@ -32,20 +29,19 @@ void Automaton::write(std::ostream& out, bool withStateLabels) {
     out << "digraph automaton {" << std::endl;
     out << "rankdir=LR" << std::endl;
     std::map<const Formula*, int> formulaIndex;
-    typedef std::map<Formula*, std::map<Formula*, std::vector<World> > >::const_iterator SourceIter;
-    typedef std::map<Formula*, std::vector<World> >::const_iterator DestIter;
-
+    typedef HashMap<HashMap<std::vector<World> > >::iterator SourceIter;
     for (SourceIter s = edges.begin(); s != edges.end(); ++s) {
         Formula* src = s->first;
         if (formulaIndex.find(src) == formulaIndex.end())
             formulaIndex[src] = formulaIndex.size();
         out << "\"" << src << "\"";
-        bool acc = (accepting.find(src) != accepting.end()) && accepting.find(src)->second;
+        bool acc = accepting.contains(src) && accepting[src];
         out << " [shape=" << (acc ? "doublecircle" : "circle");
         if (!withStateLabels)
             out << ",label=\"\"";
         out << "]" << std::endl;
-        const std::map<Formula*, std::vector<World> >& outEdges = s->second;
+        HashMap<std::vector<World> >& outEdges = s->second;
+        typedef HashMap<std::vector<World> >::iterator DestIter;
         for (DestIter d = outEdges.begin(); d != outEdges.end(); ++d) {
             const std::vector<World>& label = d->second;
             Formula* dest = d->first;
@@ -71,28 +67,23 @@ void Automaton::write(std::ostream& out, bool withStateLabels) {
 }
 
 void Automaton::simplifyEdges() {
-    typedef std::map<Formula*, std::map<Formula*, std::vector<World> > >::iterator SourceIter;
-    typedef std::map<Formula*, std::vector<World> >::iterator DestIter;
+    typedef HashMap<HashMap<std::vector<World> > >::iterator SourceIter;
+    typedef HashMap<std::vector<World> >::iterator DestIter;
     for (SourceIter s = edges.begin(); s != edges.end(); ++s) {
-        std::map<Formula*, std::vector<World> >& outEdges = s->second;
+        HashMap<std::vector<World> >& outEdges = s->second;
         for (DestIter d = outEdges.begin(); d != outEdges.end(); ++d)
             simplifyEdge(d->second);
     }
 }
 
 void Automaton::freeMemory() {
-    typedef std::map<Formula*, std::map<Formula*, std::vector<World> > >::iterator SourceIter;
-    typedef std::map<Formula*, std::vector<World> >::iterator DestIter;
-    for (SourceIter s = edges.begin(); s != edges.end(); ++s) {
-        delete s->first;
-        std::map<Formula*, std::vector<World> >& outEdges = s->second;
-        for (DestIter d = outEdges.begin(); d != outEdges.end(); ++d)
-            delete d->first;
-    }
+    typedef HashMap<HashMap<std::vector<World> > >::iterator SourceIter;
+    typedef HashMap<std::vector<World> >::iterator DestIter;
+    for (SourceIter s = edges.begin(); s != edges.end(); ++s)
+        (s->second).deleteFormulas();
+    edges.deleteFormulas();
 
-    typedef std::map<Formula*, bool>::iterator AcceptingIter;
-    for (AcceptingIter a = accepting.begin(); a != accepting.end(); ++a)
-        delete a->first;
+    accepting.deleteFormulas();
 
     typedef std::vector<Formula*>::iterator FormulaIter;
     for (FormulaIter f = initial.begin(); f != initial.end(); ++f)
