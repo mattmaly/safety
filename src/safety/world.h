@@ -4,6 +4,7 @@
 #include <map>
 #include <ostream>
 #include <string>
+#include <vector>
 
 class World {
 public:
@@ -28,5 +29,7 @@ public:
 protected:
     static std::map<std::string, int> propByName;
 };
+
+std::ostream& operator<<(std::ostream& out, const std::vector<World>& label);
 
 #endif

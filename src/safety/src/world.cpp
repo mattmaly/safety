@@ -71,3 +71,20 @@ int World::registerProposition(const std::string& p) {
 unsigned int World::numProps() {
     return propByName.size();
 }
+
+std::ostream& operator<<(std::ostream& out, const std::vector<World>& label) {
+    typedef std::vector<World>::const_iterator WorldIter;
+    WorldIter w = label.begin();
+    if (label.size() > 1)
+        out << "(";
+    w->write(out);
+    if (label.size() > 1)
+        out << ")";
+    ++w;
+    for (; w != label.end(); ++w) {
+        out << " | (";
+        w->write(out);
+        out << ")";
+    }
+    return out;
+}
