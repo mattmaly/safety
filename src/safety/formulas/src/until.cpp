@@ -6,7 +6,9 @@
 #include "safety/world.h"
 
 Until::Until(Formula* lChild, Formula* rChild) :
-    BinaryFormula(lChild, rChild) {
+    Formula(),
+    left(lChild),
+    right(rChild) {
 }
 
 Until::~Until() {
@@ -48,4 +50,21 @@ Formula* Until::evaluate(const World& w) const {
 
 std::string Until::getType() const {
     return std::string("U");
+}
+
+const Formula* Until::getLeft() const {
+    return left;
+}
+
+const Formula* Until::getRight() const {
+    return right;
+}
+
+void Until::read(std::istream& in) {
+    left = Formula::parse(in);
+    right = Formula::parse(in);
+}
+
+void Until::write(std::ostream& out) const {
+    out << getType() << " " << left << " " << right;
 }
