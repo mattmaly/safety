@@ -20,12 +20,16 @@ void Automaton::addTransition(Formula* src, const World& label, Formula* dest) {
     edges[src][dest].push_back(label);
 }
 
-void Automaton::setAccepting(const Formula* f, bool acc) {
-    accepting[f->copy()] = acc;
+void Automaton::setAccepting(Formula* f, bool acc) {
+    typedef std::map<Formula*, bool>::iterator FormulaIter;
+    FormulaIter fiter = accepting.find(f);
+    f = (fiter == accepting.end() ? f->copy() : fiter->first);
+    accepting[f] = acc;
 }
 
-void Automaton::addInitial(const Formula* f) {
-    initial.push_back(f->copy());
+void Automaton::addInitial(Formula* f) {
+    if (initial.count(f) == 0)
+        initial.insert(f->copy());
 }
 
 void Automaton::write(std::ostream& out, bool withStateLabels) {
@@ -94,7 +98,7 @@ void Automaton::freeMemory() {
     for (AcceptingIter a = accepting.begin(); a != accepting.end(); ++a)
         delete a->first;
 
-    typedef std::vector<Formula*>::iterator FormulaIter;
+    typedef std::set<Formula*>::iterator FormulaIter;
     for (FormulaIter f = initial.begin(); f != initial.end(); ++f)
         delete *f;
 }

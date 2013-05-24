@@ -3,6 +3,7 @@
 
 #include <map>
 #include <ostream>
+#include <set>
 #include <vector>
 #include "safety/formula.h"
 #include "safety/world.h"
@@ -26,14 +27,14 @@ public:
         Only one deep copy will be made of any given Formula,
         where equality is measured according to the string
         representation of the Formula. */
-    void setAccepting(const Formula* f, bool acc);
+    void setAccepting(Formula* f, bool acc);
 
     /** Adds the state corresponding to the Formula f as an
         initial state of the automaton. Stores a deep copy of f.
         Only one deep copy will be made of any given Formula,
         where equality is measured according to the string
         representation of the Formula. */
-    void addInitial(const Formula* f);
+    void addInitial(Formula* f);
 
     /** Prints this automaton to a given output stream.
         If flag withStateLabels is true, then each automaton state
@@ -52,7 +53,7 @@ protected:
 
     std::map<Formula*, std::map<Formula*, std::vector<World> > > edges;
     std::map<Formula*, bool> accepting;
-    std::vector<Formula*> initial;
+    std::set<Formula*> initial;
 };
 
 #endif
