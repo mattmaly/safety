@@ -12,6 +12,10 @@ Until::Until(Formula* lChild, Formula* rChild) :
 }
 
 Until::~Until() {
+    if (left != NULL)
+        delete left;
+    if (right != NULL)
+        delete right;
 }
 
 Formula* Until::copy() const {
