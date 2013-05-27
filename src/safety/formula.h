@@ -3,6 +3,7 @@
 
 #include <istream>
 #include <ostream>
+#include <set>
 #include <string>
 #include "safety/world.h"
 
@@ -26,6 +27,9 @@ public:
 
     /** Returns whether this formula is logically false. */
     virtual bool isFalse() const;
+
+    /** Returns the set of propositions contained in this formula. */
+    virtual std::set<int> getProps() const = 0;
 
     /** Returns a newly allocated formula, reading from an input stream. */
     static Formula* parse(std::istream& in);

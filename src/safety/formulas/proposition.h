@@ -3,6 +3,7 @@
 
 #include <istream>
 #include <ostream>
+#include <set>
 #include <string>
 #include "safety/formula.h"
 #include "safety/world.h"
@@ -14,6 +15,9 @@ public:
 
     /** Clears all memory associated with this proposition. */
     virtual ~Proposition();
+
+    /** Returns a singleton set containing this proposition's ID. */
+    virtual std::set<int> getProps() const;
 
     /** Reads nothing from an input stream, since propositions do not
         have subformulas. Instead, registers this proposition with World. */

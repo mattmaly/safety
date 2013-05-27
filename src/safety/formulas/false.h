@@ -3,6 +3,7 @@
 
 #include <istream>
 #include <ostream>
+#include <set>
 #include "safety/formula.h"
 #include "safety/world.h"
 
@@ -10,6 +11,9 @@ class False : public Formula {
 public:
     /** Clears all memory associated with this false formula. */
     virtual ~False();
+
+    /** Returns an empty set, since false formulas do not have propositions. */
+    virtual std::set<int> getProps() const;
 
     /** Reads nothing from an input stream, since false formulas do not
         have subformulas. */

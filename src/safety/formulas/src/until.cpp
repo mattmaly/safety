@@ -1,3 +1,4 @@
+#include <set>
 #include <string>
 #include "safety/formulas/conjunction.h"
 #include "safety/formulas/disjunction.h"
@@ -50,6 +51,13 @@ Formula* Until::evaluate(const World& w) const {
     disChildren.insert(right->evaluate(w));
     disChildren.insert(c);
     return new Disjunction(disChildren);
+}
+
+std::set<int> Until::getProps() const {
+    std::set<int> props = left->getProps();
+    std::set<int> rightProps = right->getProps();
+    props.insert(rightProps.begin(), rightProps.end());
+    return props;
 }
 
 std::string Until::getType() const {

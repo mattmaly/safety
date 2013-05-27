@@ -3,6 +3,7 @@
 
 #include <istream>
 #include <ostream>
+#include <set>
 #include <string>
 #include "safety/formula.h"
 
@@ -13,6 +14,9 @@ public:
 
     /** Clears the subformula belonging to this unary formula. */
     virtual ~UnaryFormula();
+
+    /** Returns the set of propositions contained in this unary formula. */
+    virtual std::set<int> getProps() const;
 
     /** Fills the subformula of this unary formula by reading
         from an input stream. */

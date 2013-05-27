@@ -1,9 +1,14 @@
 #include <istream>
 #include <ostream>
+#include <set>
 #include "safety/formulas/true.h"
 #include "safety/world.h"
 
 True::~True() {
+}
+
+std::set<int> True::getProps() const {
+    return std::set<int>();
 }
 
 void True::read(std::istream& in) {

@@ -11,6 +11,9 @@ public:
     /** Clears all memory associated with this true formula. */
     virtual ~True();
 
+    /** Returns an empty set, since true formulas do not have propositions. */
+    virtual std::set<int> getProps() const;
+
     /** Reads nothing from an input stream, since true formulas do not
         have subformulas. */
     virtual void read(std::istream& in);

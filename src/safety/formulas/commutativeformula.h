@@ -13,6 +13,9 @@ public:
     /** Clears all subformulas belonging to this CommutativeFormula. */
 	virtual ~CommutativeFormula();
 
+    /** Returns the set of propositions contained in this commutative formula. */
+    virtual std::set<int> getProps() const;
+
     /** Returns the operator type for this CommutativeFormula. */
     virtual std::string getType() const = 0;
 

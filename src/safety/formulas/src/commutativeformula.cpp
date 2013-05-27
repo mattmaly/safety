@@ -16,6 +16,16 @@ CommutativeFormula::~CommutativeFormula() {
         delete *c;
 }
 
+std::set<int> CommutativeFormula::getProps() const {
+    std::set<int> props;
+    typedef std::set<Formula*>::const_iterator ChildIter;
+    for (ChildIter c = children.begin(); c != children.end(); ++c) {
+        std::set<int> childProps = (*c)->getProps();
+        props.insert(childProps.begin(), childProps.end());
+    }
+    return props;
+}
+
 void CommutativeFormula::read(std::istream& in) {
     /* for the sake of easily-parse-able input,
        we are currently assuming that the user inputs commutative formulas

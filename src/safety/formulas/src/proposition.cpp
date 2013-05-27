@@ -1,5 +1,6 @@
 #include <istream>
 #include <ostream>
+#include <set>
 #include <string>
 #include "safety/formulas/true.h"
 #include "safety/formulas/false.h"
@@ -10,6 +11,12 @@ Proposition::Proposition(const std::string& n) : Formula(), name(n) {
 }
 
 Proposition::~Proposition() {
+}
+
+std::set<int> Proposition::getProps() const {
+    std::set<int> p;
+    p.insert(World::registerProposition(name));
+    return p;
 }
 
 void Proposition::read(std::istream& in) {
