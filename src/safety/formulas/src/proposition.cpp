@@ -25,6 +25,8 @@ Formula* Proposition::copy() const {
 }
 
 Formula* Proposition::evaluate(const World& w) const {
+    if (!w.contains(name))
+        return copy();
     if (w[name])
         return new True();
     return new False();

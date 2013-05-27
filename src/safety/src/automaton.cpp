@@ -108,8 +108,10 @@ void Automaton::simplifyEdge(std::vector<World>& label) {
     typedef std::vector<World>::const_iterator WorldIter;
     for (WorldIter wi = label.begin(); wi != label.end(); ++wi) {
         const World& w = *wi;
-        for (unsigned int p = 0; p < World::numProps(); ++p)
-            polarity[p] += (w[p] ? 1 : -1);
+        for (unsigned int p = 0; p < World::numProps(); ++p) {
+            if (w.contains(p))
+                polarity[p] += (w[p] ? 1 : -1);
+        }
     }
 
     std::vector<World> newLabel;
