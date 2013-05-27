@@ -14,11 +14,12 @@ public:
 
 protected:
     /** A class that iterates over all possible truth assignments
-        over all propositions that have been registered with World. */
+        over all propositions contained in a given formula. */
     class WorldIterator {
     public:
-        /** Constructs and initializes a WorldIterator. */
-        WorldIterator();
+        /** Constructs and initializes a WorldIterator
+            over the propositions of a given formula. */
+        WorldIterator(const Formula* f);
 
         /** Returns whether this WorldIterator contains remaining Worlds. */
         bool hasNext();
@@ -28,7 +29,7 @@ protected:
         World next();
 
     protected:
-        unsigned int numProps;
+        std::set<int> props;
         unsigned int size;
         unsigned int index;
     };

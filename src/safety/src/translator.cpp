@@ -6,6 +6,7 @@
 #include <vector>
 #include <queue>
 #include <set>
+#include <iostream>
 
 Automaton Translator::translate(const Formula* f) {
     Automaton aut;
@@ -25,7 +26,7 @@ Automaton Translator::translate(const Formula* f) {
         upcoming.pop();
         if (next->isTrue())
             aut.setAccepting(next, true);
-        WorldIterator witer;
+        WorldIterator witer(next);
         while (witer.hasNext()) {
             World w = witer.next();
             Formula* neighbor = next->evaluate(w);
@@ -53,11 +54,10 @@ Automaton Translator::translate(const Formula* f) {
     return aut;
 }
 
-Translator::WorldIterator::WorldIterator() :
-    numProps(World::numProps()),
-    size(1<<numProps),
+Translator::WorldIterator::WorldIterator(const Formula* f) :
+    props(f->getProps()),
+    size(props.empty() ? 0 : 1<<props.size()),
     index(0) {
-
 }
 
 bool Translator::WorldIterator::hasNext() {
@@ -66,8 +66,10 @@ bool Translator::WorldIterator::hasNext() {
 
 World Translator::WorldIterator::next() {
     World w;
-    for (unsigned int pid = 0; pid < numProps; ++pid)
-        w[pid] = (index & (1 << pid)) != 0;
+    typedef std::set<int>::const_iterator PropIter;
+    unsigned int setIndex = 0;
+    for (PropIter p = props.begin(); p != props.end(); ++p, ++setIndex)
+        w[*p] = (index & (1 << setIndex)) != 0;
     ++index;
     return w;
 }
