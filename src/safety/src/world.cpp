@@ -4,6 +4,17 @@
 #include <string>
 #include "safety/world.h"
 
+bool World::contains(const std::string& p) const {
+    std::map<std::string, int>::const_iterator piter = World::propByName.find(p);
+    if (piter == World::propByName.end())
+        return false;
+    return contains(piter->second);
+}
+
+bool World::contains(int pid) const {
+    return assignment.find(pid) != assignment.end();
+}
+
 bool& World::operator[](const std::string& p) {
     std::map<std::string, int>::const_iterator piter = World::propByName.find(p);
     assert(piter != World::propByName.end());

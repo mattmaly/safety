@@ -7,6 +7,14 @@
 
 class World {
 public:
+    /** Returns whether this World contains a truth assignment
+        for a given proposition, given by name. */
+    bool contains(const std::string& p) const;
+
+    /** Returns whether this World contains a truth assignment
+        for a given proposition, given by ID. */
+    bool contains(int pid) const;
+
     /** Returns a bool-reference corresponding to a given
         proposition name, which must already be registered with World.
         Initializes a new bool assignment for this World if one does not
