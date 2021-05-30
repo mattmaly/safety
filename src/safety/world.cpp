@@ -5,20 +5,18 @@
 #include "safety/world.h"
 
 bool World::contains(const std::string& p) const {
-    std::map<std::string, int>::const_iterator piter = World::propByName.find(p);
+    const auto piter = World::propByName.find(p);
     if (piter == World::propByName.end())
         return false;
     return contains(piter->second);
 }
 
 bool World::contains(int pid) const {
-    return assignment.find(pid) != assignment.end();
+    return assignment.contains(pid);
 }
 
 bool& World::operator[](const std::string& p) {
-    std::map<std::string, int>::const_iterator piter = World::propByName.find(p);
-    assert(piter != World::propByName.end());
-    const int pid = piter->second;
+    const int pid = World::propByName.at(p);
     return this->operator[](pid);
 }
 
@@ -27,36 +25,32 @@ bool& World::operator[](int pid) {
 }
 
 bool World::operator[](const std::string& p) const {
-    std::map<std::string, int>::const_iterator piter = World::propByName.find(p);
-    assert(piter != World::propByName.end());
-    const int pid = piter->second;
+    const int pid = World::propByName.at(p);
     return this->operator[](pid);
 }
 
 bool World::operator[](int pid) const {
-    std::map<int, bool>::const_iterator aiter = assignment.find(pid);
-    assert(aiter != assignment.end());
-    return aiter->second;
+    return assignment.at(pid);
 }
 
 void World::write(std::ostream& out) const {
-    typedef std::map<std::string, int>::const_iterator PropNameIter;
-    typedef std::map<int, bool>::const_iterator AssignmentIter;
-
     if (assignment.empty()) {
         out << "true";
         return;
     }
 
     bool firstTerm = true;
-    for (PropNameIter piter = propByName.begin(); piter != propByName.end(); ++piter) {
-        AssignmentIter aiter = assignment.find(piter->second);
+    for (const auto& kv : propByName) {
+        const std::string& propName = kv.first;
+        const int pid = kv.second;
+        const auto aiter = assignment.find(pid);
         if (aiter == assignment.end())
             continue;
+        const bool valueForProp = aiter->second;
         if (!firstTerm)
             out << " & ";
         firstTerm = false;
-        out << (aiter->second ? "" : "!") << piter->first;
+        out << (valueForProp ? "" : "!") << propName;
     }
 }
 
