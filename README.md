@@ -6,3 +6,4 @@ a tool to translate co-safety linear temporal logic formulas into finite automat
 still in the beginning stages!
 
 written by Matt Maly
+
