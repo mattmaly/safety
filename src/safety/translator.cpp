@@ -13,12 +13,11 @@ Automaton Translator::translate(const Formula* f) {
     std::vector<Formula*> initialStates(1, f->copy());
     std::queue<Formula*> upcoming;
     std::set<Formula*> processed;
-    typedef std::vector<Formula*>::iterator FormulaIter;
 
-    for (FormulaIter fi = initialStates.begin(); fi != initialStates.end(); ++fi) {
-        aut.addInitial(*fi);
-        upcoming.push(*fi);
-        processed.insert(*fi);
+    for (Formula* f : initialStates) {
+        aut.addInitial(f);
+        upcoming.push(f);
+        processed.insert(f);
     }
 
     while (!upcoming.empty()) {
@@ -35,21 +34,20 @@ Automaton Translator::translate(const Formula* f) {
             delete neighbor;
             delete simpNeighbor;
 
-            for (FormulaIter d = dests.begin(); d != dests.end(); ++d) {
-                aut.addTransition(next, w, *d);
-                if (processed.count(*d) > 0)
-                    delete *d;
+            for (Formula* dest : dests) {
+                aut.addTransition(next, w, dest);
+                if (processed.count(dest) > 0)
+                    delete dest;
                 else {
-                    upcoming.push(*d);
-                    processed.insert(*d);
+                    upcoming.push(dest);
+                    processed.insert(dest);
                 }
             }
         }
     }
 
-    typedef std::set<Formula*>::iterator FormulaSetIter;
-    for (FormulaSetIter i = processed.begin(); i != processed.end(); ++i)
-        delete *i;
+    for (Formula* f : processed)
+        delete f;
 
     return aut;
 }
@@ -66,10 +64,11 @@ bool Translator::WorldIterator::hasNext() {
 
 World Translator::WorldIterator::next() {
     World w;
-    typedef std::set<int>::const_iterator PropIter;
     unsigned int setIndex = 0;
-    for (PropIter p = props.begin(); p != props.end(); ++p, ++setIndex)
-        w[*p] = (index & (1 << setIndex)) != 0;
+    for (int p : props) {
+        w[p] = (index & (1 << setIndex)) != 0;
+        ++setIndex;
+    }
     ++index;
     return w;
 }
