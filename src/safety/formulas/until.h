@@ -8,7 +8,7 @@
 class Until : public Formula {
 public:
     /** Creates an until formula with given left and right subformulas. */
-    Until(Formula* lChild = NULL, Formula* rChild = NULL);
+    Until(Formula* lChild = nullptr, Formula* rChild = nullptr);
 
     /** Clears all subformulas belonging to this until formula. */
     virtual ~Until();
