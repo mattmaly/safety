@@ -8,7 +8,7 @@
 class Negation : public UnaryFormula {
 public:
     /** Creates an negation with a given subformula. */
-    Negation(Formula* c = NULL);
+    Negation(Formula* c = nullptr);
 
     /** Clears the subformula belonging to this negation. */
     virtual ~Negation();
