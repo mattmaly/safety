@@ -8,7 +8,7 @@
 class Eventually : public UnaryFormula {
 public:
     /** Creates an eventually formula with a given subformula. */
-    Eventually(Formula* c = NULL);
+    Eventually(Formula* c = nullptr);
 
     /** Clears the subformula belonging to this eventually formula. */
     virtual ~Eventually();
