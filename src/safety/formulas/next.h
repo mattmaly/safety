@@ -8,7 +8,7 @@
 class Next : public UnaryFormula {
 public:
     /** Creates an next formula with a given subformula. */
-    Next(Formula* c = NULL);
+    Next(Formula* c = nullptr);
 
     /** Clears the subformula belonging to this next formula. */
     virtual ~Next();
