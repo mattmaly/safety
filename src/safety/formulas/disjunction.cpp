@@ -12,20 +12,18 @@ Disjunction::~Disjunction() {
 
 Formula* Disjunction::copy() const {
     std::set<Formula*> copyChildren;
-    typedef std::set<Formula*>::const_iterator ChildIter;
-    for (ChildIter c = children.begin(); c != children.end(); ++c)
-        copyChildren.insert((*c)->copy());
+    for (Formula* c : children)
+        copyChildren.insert(c->copy());
     return new Disjunction(copyChildren);
 }
 
 Formula* Disjunction::simplify() const {
     std::set<Formula*> simpChildren;
-    typedef std::set<Formula*>::const_iterator ChildIter;
-    for (ChildIter c = children.begin(); c != children.end(); ++c) {
-        Formula* sc = (*c)->simplify();
+    for (Formula* c : children) {
+        Formula* sc = c->simplify();
         if (sc->isTrue()) {
-            for (ChildIter cd = simpChildren.begin(); cd != simpChildren.end(); ++cd)
-                delete *cd;
+            for (Formula* cd : simpChildren)
+                delete cd;
             return sc;
         }
         else if (sc->isFalse())
@@ -33,18 +31,18 @@ Formula* Disjunction::simplify() const {
         else {
             //if disjunction, pull its children up, and then delete it
             Disjunction* disChild = dynamic_cast<Disjunction*>(sc);
-            if (disChild == NULL) {
+            if (disChild == nullptr) {
                 if (simpChildren.find(sc) == simpChildren.end())
                     simpChildren.insert(sc); //TODO memory leak if duplicate?
                 else
                     delete sc;
             }
             else { //TODO memory leak?
-                for (ChildIter dc = disChild->children.begin(); dc != disChild->children.end(); ++dc) {
-                    if (simpChildren.find(*dc) == simpChildren.end())
-                        simpChildren.insert(*dc);
+                for (Formula* dc : disChild->children) {
+                    if (simpChildren.find(dc) == simpChildren.end())
+                        simpChildren.insert(dc);
                     else
-                        delete *dc;
+                        delete dc;
                 }
                 disChild->children.clear();
                 delete disChild; //TODO does this prevent leak or is it overkill?
@@ -60,9 +58,8 @@ Formula* Disjunction::simplify() const {
 
 Formula* Disjunction::evaluate(const World& w) const {
     std::set<Formula*> evalChildren;
-    typedef std::set<Formula*>::const_iterator ChildIter;
-    for (ChildIter c = children.begin(); c != children.end(); ++c) {
-        Formula* evalChild = (*c)->evaluate(w);
+    for (Formula* c : children) {
+        Formula* evalChild = c->evaluate(w);
         if (evalChildren.find(evalChild) == evalChildren.end())
             evalChildren.insert(evalChild);
         else
