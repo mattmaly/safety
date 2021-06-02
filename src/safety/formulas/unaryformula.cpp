@@ -8,7 +8,7 @@ UnaryFormula::UnaryFormula(Formula* c) : Formula(),
 }
 
 UnaryFormula::~UnaryFormula() {
-    if (child != NULL)
+    if (child != nullptr)
         delete child;
 }
 
